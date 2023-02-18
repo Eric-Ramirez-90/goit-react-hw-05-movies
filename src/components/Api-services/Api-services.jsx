@@ -21,4 +21,12 @@ const fetchMovieById = async (id, signal) => {
   return data;
 };
 
-export { fetchTrendingMovies, fetchMovieById };
+const fetchMoviesBySearchQuery = async searchQuery => {
+  const { data } = await Axios.get(`search/movie?query=${searchQuery}`);
+
+  const moviesList = data.results;
+
+  return moviesList;
+};
+
+export { fetchTrendingMovies, fetchMovieById, fetchMoviesBySearchQuery };
