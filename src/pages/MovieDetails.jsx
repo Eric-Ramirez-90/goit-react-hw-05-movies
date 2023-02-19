@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { fetchMovieById } from '../components/Api-services/Api-services';
 import { Status } from '../constants/status';
+import { ToastContainer } from 'react-toastify';
 import BackLink from 'components/BackLink';
 import MovieInfo from 'components/MovieInfo';
 import Loader from 'components/Loader';
@@ -48,7 +49,12 @@ const MovieDetails = () => {
       {status === Status.PENDING && <Loader />}
       {status === Status.RESOLVED && <MovieInfo movie={movie} />}
       {status === Status.REJECTED && <div>{error}</div>}
-      <Outlet />
+
+      <ToastContainer autoClose={3000} rtl />
+
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
     </main>
   );
 };

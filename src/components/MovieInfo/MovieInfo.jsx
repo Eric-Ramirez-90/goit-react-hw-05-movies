@@ -1,4 +1,13 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import noImage from '../../images/noImages.jpg';
+import {
+  Container,
+  Img,
+  InfoBlock,
+  MoreInfo,
+  NavMoreInfo,
+  StyledLink,
+} from './MovieInfo.styled';
 
 const MovieInfo = ({ movie }) => {
   const { title, overview, poster_path, genres, vote_average } = movie;
@@ -8,19 +17,21 @@ const MovieInfo = ({ movie }) => {
   const backLinkHref = location.state?.from ?? '/';
 
   return (
-    <div>
-      <div>
-        <img
-          src={`https://image.tmdb.org/t/p/w500${poster_path}`}
-          alt={title}
-          width="300"
-        />
-      </div>
-      <div>
+    <Container>
+      <Img
+        src={
+          poster_path
+            ? `https://image.tmdb.org/t/p/w500${poster_path}`
+            : noImage
+        }
+        alt={title}
+      />
+
+      <InfoBlock>
         <h3>{title}</h3>
         <p>User score: {rating}%</p>
         <h4>Overview</h4>
-        <p>{overview}</p>
+        <p>{overview ? overview : 'N/A'}</p>
         <h5>Genres</h5>
         <div>
           <ul>
@@ -29,21 +40,19 @@ const MovieInfo = ({ movie }) => {
               : 'N/A'}
           </ul>
         </div>
-      </div>
 
-      <div>
-        <h2>Additional Information</h2>
-        <nav>
-          <Link to="cast" state={{ from: backLinkHref }}>
+        <MoreInfo>Additional Information</MoreInfo>
+        <NavMoreInfo>
+          <StyledLink to="cast" state={{ from: backLinkHref }}>
             <p>Cast</p>
-          </Link>
+          </StyledLink>
 
-          <Link to="reviews" state={{ from: backLinkHref }}>
+          <StyledLink to="reviews" state={{ from: backLinkHref }}>
             <p>Reviews</p>
-          </Link>
-        </nav>
-      </div>
-    </div>
+          </StyledLink>
+        </NavMoreInfo>
+      </InfoBlock>
+    </Container>
   );
 };
 

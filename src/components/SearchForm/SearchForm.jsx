@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { FcSearch } from 'react-icons/fc';
+import { Container, Form, Input, Button } from './SearchForm.styled';
 
 const SearchForm = ({ onSubmit }) => {
   const [inputquery, setInputQuery] = useState('');
@@ -23,17 +25,19 @@ const SearchForm = ({ onSubmit }) => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Input
           type="text"
           placeholder="Search movies"
           value={inputquery}
           onChange={handleInpurChange}
         />
-        <button type="submit">Search</button>
-      </form>
-    </>
+        <Button type="submit">
+          <FcSearch size="24" />
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCastInfo } from 'components/Api-services/Api-services';
 import { Status } from '../../constants/status';
+import { toast } from 'react-toastify';
 import Loader from 'components/Loader';
+import noImage from '../../images/noImages.jpg';
+import { List, Item, Img, Name, Text, Span } from './Cast.styled';
 
 const Cast = () => {
   const [actorsCast, setActorsCast] = useState({});
@@ -22,7 +25,8 @@ const Cast = () => {
         const { cast } = await fetchMovieCastInfo(movieId, signal);
 
         if (!cast.length) {
-          return;
+          toast.info('No cast information found');
+          setStatus(Status.IDLE);
         }
 
         setActorsCast(cast);
@@ -47,21 +51,24 @@ const Cast = () => {
       {status === Status.PENDING && <Loader />}
       {status === Status.REJECTED && <div>{error}</div>}
       {status === Status.RESOLVED && (
-        <div>
-          <ul>
-            {actorsCast.map(({ id, name, profile_path, character }) => (
-              <li key={id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${profile_path}`}
-                  alt="name"
-                  width="200"
-                />
-                <h3>{name}</h3>
-                <p>Character: {character}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <List>
+          {actorsCast.map(({ id, name, profile_path, character }) => (
+            <Item key={id}>
+              <Img
+                src={
+                  profile_path
+                    ? `https://image.tmdb.org/t/p/w500${profile_path}`
+                    : noImage
+                }
+                alt="name"
+              />
+              <Name>{name}</Name>
+              <Text>
+                <Span>Character:</Span> {character ? character : 'N/A'}
+              </Text>
+            </Item>
+          ))}
+        </List>
       )}
     </div>
   );

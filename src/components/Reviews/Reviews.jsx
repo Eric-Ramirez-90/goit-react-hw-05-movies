@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { fetchMoviesReviewsInfo } from 'components/Api-services/Api-services';
 import { Status } from '../../constants/status';
 import Loader from 'components/Loader';
+import { Container, List, Title, Item } from './Reviews.styled';
 
 const Reviews = () => {
   const [movieReviews, setmovieReviews] = useState(null);
@@ -22,7 +24,8 @@ const Reviews = () => {
         const results = await fetchMoviesReviewsInfo(movieId, signal);
 
         if (!results.length) {
-          return;
+          toast.info('No reviews were found');
+          setStatus(Status.IDLE);
         }
 
         setmovieReviews(results);
@@ -43,16 +46,16 @@ const Reviews = () => {
       {status === Status.PENDING && <Loader />}{' '}
       {status === Status.REJECTED && <div>{error}</div>}
       {status === Status.RESOLVED && (
-        <div>
-          <ul>
+        <Container>
+          <List>
             {movieReviews.map(({ id, author, content }) => (
-              <li key={id}>
-                <h3>Author: {author}</h3>
-                <p>{content}</p>
-              </li>
+              <Item key={id}>
+                <Title>Author: {author}</Title>
+                <p>&emsp;{content}</p>
+              </Item>
             ))}
-          </ul>
-        </div>
+          </List>
+        </Container>
       )}
     </div>
   );
