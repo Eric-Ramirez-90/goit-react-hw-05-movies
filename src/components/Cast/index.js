@@ -1,1 +1,1 @@
-export { default } from './MovieCast';
+export { default } from './Cast';

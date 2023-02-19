@@ -40,7 +40,14 @@ const Home = () => {
   return (
     <main>
       <div>
-        <h1>Trending today</h1>
+        <h1
+          style={{
+            textAlign: 'center',
+            marginBottom: 30,
+          }}
+        >
+          Trending today
+        </h1>
         {status === Status.PENDING && <Loader />}
         {status === Status.RESOLVED && <MoviesList movies={trending} />}
         {status === Status.REJECTED && <div>{error}</div>}

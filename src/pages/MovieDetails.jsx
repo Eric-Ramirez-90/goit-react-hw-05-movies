@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { fetchMovieById } from '../components/Api-services/Api-services';
 import { Status } from '../constants/status';
 import BackLink from 'components/BackLink';
@@ -7,7 +7,7 @@ import MovieInfo from 'components/MovieInfo';
 import Loader from 'components/Loader';
 
 const MovieDetails = () => {
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState(null);
   const [status, setStatus] = useState(Status.IDLE);
   const [error, setError] = useState(null);
 
@@ -44,10 +44,11 @@ const MovieDetails = () => {
   }, [movieId]);
   return (
     <main>
-      <BackLink to={backLinkHref}>Back to Movies list</BackLink>
+      <BackLink to={backLinkHref}>Back to movies list</BackLink>
       {status === Status.PENDING && <Loader />}
       {status === Status.RESOLVED && <MovieInfo movie={movie} />}
       {status === Status.REJECTED && <div>{error}</div>}
+      <Outlet />
     </main>
   );
 };

@@ -29,3 +29,11 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  list-style: none;
+}

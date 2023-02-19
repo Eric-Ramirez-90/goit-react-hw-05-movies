@@ -29,4 +29,22 @@ const fetchMoviesBySearchQuery = async searchQuery => {
   return moviesList;
 };
 
-export { fetchTrendingMovies, fetchMovieById, fetchMoviesBySearchQuery };
+const fetchMovieCastInfo = async (id, signal) => {
+  const { data } = await Axios.get(`movie/${id}/credits`, { signal });
+
+  return data;
+};
+
+const fetchMoviesReviewsInfo = async (id, signal) => {
+  const { data } = await Axios.get(`movie/${id}/reviews`, { signal });
+
+  return data.results;
+};
+
+export {
+  fetchTrendingMovies,
+  fetchMovieById,
+  fetchMoviesBySearchQuery,
+  fetchMovieCastInfo,
+  fetchMoviesReviewsInfo,
+};

@@ -1,15 +1,12 @@
 import PropTypes from 'prop-types';
+import { Container, Img, Title } from './MovieItem.styled';
 
 const MovieItem = ({ title, poster }) => {
   return (
-    <div>
-      {/* <img
-        src={`https://image.tmdb.org/t/p/w500${poster}`}
-        alt={title}
-        width="300"
-      /> */}
-      <h3>{title}</h3>
-    </div>
+    <Container>
+      <Img src={`https://image.tmdb.org/t/p/w500${poster}`} alt={title} />
+      <Title>{title}</Title>
+    </Container>
   );
 };
 
