@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
+  max-width: 1200px;
   display: flex;
   gap: 20px;
   border-bottom: 2px solid gray;
@@ -16,6 +17,8 @@ export const InfoBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  padding-left: 5px;
+  padding-right: 5px;
 `;
 
 export const MoreInfo = styled.h2`

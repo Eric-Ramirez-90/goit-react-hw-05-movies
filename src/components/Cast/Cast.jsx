@@ -5,7 +5,7 @@ import { Status } from '../../constants/status';
 import { toast } from 'react-toastify';
 import Loader from 'components/Loader';
 import noImage from '../../images/noImages.jpg';
-import { List, Item, Img, Name, Text, Span } from './Cast.styled';
+import { Container, List, Item, Img, Name, Text, Span } from './Cast.styled';
 
 const Cast = () => {
   const [actorsCast, setActorsCast] = useState({});
@@ -26,7 +26,7 @@ const Cast = () => {
 
         if (!cast.length) {
           toast.info('No cast information found');
-          setStatus(Status.IDLE);
+          return;
         }
 
         setActorsCast(cast);
@@ -47,7 +47,7 @@ const Cast = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <Container>
       {status === Status.PENDING && <Loader />}
       {status === Status.REJECTED && <div>{error}</div>}
       {status === Status.RESOLVED && (
@@ -70,7 +70,7 @@ const Cast = () => {
           ))}
         </List>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -1,5 +1,4 @@
-import { useLocation, Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import noImage from '../../images/noImages.jpg';
 import {
@@ -10,7 +9,6 @@ import {
   NavMoreInfo,
   StyledLink,
 } from './MovieInfo.styled';
-import Loader from 'components/Loader';
 
 const MovieInfo = ({ movie }) => {
   const { title, overview, poster_path, genres, vote_average } = movie;
@@ -46,6 +44,7 @@ const MovieInfo = ({ movie }) => {
           </div>
         </InfoBlock>
       </Container>
+
       <MoreInfo>Additional Information</MoreInfo>
       <NavMoreInfo>
         <StyledLink to="cast" state={{ from: backLinkHref }}>
@@ -56,10 +55,6 @@ const MovieInfo = ({ movie }) => {
           <p>Reviews</p>
         </StyledLink>
       </NavMoreInfo>
-
-      <Suspense fallback={<Loader />}>
-        <Outlet />
-      </Suspense>
     </>
   );
 };

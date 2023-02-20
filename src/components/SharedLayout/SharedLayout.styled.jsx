@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 
 export const Container = styled.div`
-  max-width: 100vw;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 16px;
 `;

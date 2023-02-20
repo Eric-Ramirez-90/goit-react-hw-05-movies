@@ -46,11 +46,11 @@ const Reviews = () => {
   }, [movieId]);
 
   return (
-    <div>
+    <Container>
       {status === Status.PENDING && <Loader />}{' '}
       {status === Status.REJECTED && <div>{error}</div>}
       {status === Status.RESOLVED && (
-        <Container>
+        <>
           <List>
             {movieReviews.map(({ id, author, content }) => (
               <Item key={id}>
@@ -59,9 +59,9 @@ const Reviews = () => {
               </Item>
             ))}
           </List>
-        </Container>
+        </>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -3,6 +3,7 @@ import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { fetchMovieById } from '../components/Api-services/Api-services';
 import { Status } from '../constants/status';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import BackLink from 'components/BackLink';
 import MovieInfo from 'components/MovieInfo';
 import Loader from 'components/Loader';
