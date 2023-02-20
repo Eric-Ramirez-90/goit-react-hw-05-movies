@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 export const Container = styled.div`
   display: flex;
   gap: 20px;
-
   border-bottom: 2px solid gray;
 `;
 
@@ -27,10 +26,12 @@ export const NavMoreInfo = styled.nav`
   display: flex;
   gap: 30px;
   justify-content: center;
-  margin-bottom: 15px;
+
+  border-bottom: 2px solid gray;
 `;
 
 export const StyledLink = styled(NavLink)`
   color: blueviolet;
   font-weight: 700;
+  margin-bottom: 15px;
 `;

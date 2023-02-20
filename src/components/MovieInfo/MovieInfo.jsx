@@ -1,4 +1,5 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
 import PropTypes from 'prop-types';
 import noImage from '../../images/noImages.jpg';
 import {
@@ -9,6 +10,7 @@ import {
   NavMoreInfo,
   StyledLink,
 } from './MovieInfo.styled';
+import Loader from 'components/Loader';
 
 const MovieInfo = ({ movie }) => {
   const { title, overview, poster_path, genres, vote_average } = movie;
@@ -18,42 +20,47 @@ const MovieInfo = ({ movie }) => {
   const backLinkHref = location.state?.from ?? '/';
 
   return (
-    <Container>
-      <Img
-        src={
-          poster_path
-            ? `https://image.tmdb.org/t/p/w500${poster_path}`
-            : noImage
-        }
-        alt={title}
-      />
+    <>
+      <Container>
+        <Img
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w500${poster_path}`
+              : noImage
+          }
+          alt={title}
+        />
 
-      <InfoBlock>
-        <h3>{title}</h3>
-        <p>User score: {rating}%</p>
-        <h4>Overview</h4>
-        <p>{overview ? overview : 'N/A'}</p>
-        <h5>Genres</h5>
-        <div>
-          <ul>
-            {genres
-              ? genres.map(genre => <li key={genre.id}>{genre.name}</li>)
-              : 'N/A'}
-          </ul>
-        </div>
+        <InfoBlock>
+          <h3>{title}</h3>
+          <p>User score: {rating}%</p>
+          <h4>Overview</h4>
+          <p>{overview ? overview : 'N/A'}</p>
+          <h5>Genres</h5>
+          <div>
+            <ul>
+              {genres
+                ? genres.map(({ id, name }) => <li key={id}>{name}</li>)
+                : 'N/A'}
+            </ul>
+          </div>
+        </InfoBlock>
+      </Container>
+      <MoreInfo>Additional Information</MoreInfo>
+      <NavMoreInfo>
+        <StyledLink to="cast" state={{ from: backLinkHref }}>
+          <p>Cast</p>
+        </StyledLink>
 
-        <MoreInfo>Additional Information</MoreInfo>
-        <NavMoreInfo>
-          <StyledLink to="cast" state={{ from: backLinkHref }}>
-            <p>Cast</p>
-          </StyledLink>
+        <StyledLink to="reviews" state={{ from: backLinkHref }}>
+          <p>Reviews</p>
+        </StyledLink>
+      </NavMoreInfo>
 
-          <StyledLink to="reviews" state={{ from: backLinkHref }}>
-            <p>Reviews</p>
-          </StyledLink>
-        </NavMoreInfo>
-      </InfoBlock>
-    </Container>
+      <Suspense fallback={<Loader />}>
+        <Outlet />
+      </Suspense>
+    </>
   );
 };
 
@@ -61,12 +68,14 @@ MovieInfo.propTypes = {
   movie: PropTypes.shape({
     title: PropTypes.string.isRequired,
     overview: PropTypes.string.isRequired,
-    poster_path: PropTypes.string.isRequired,
+    poster_path: PropTypes.string,
     vote_average: PropTypes.number.isRequired,
-    genres: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })
+    ),
   }),
 };
 

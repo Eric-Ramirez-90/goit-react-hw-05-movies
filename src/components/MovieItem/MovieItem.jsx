@@ -16,7 +16,7 @@ const MovieItem = ({ title, poster }) => {
 
 MovieItem.propTypes = {
   title: PropTypes.string.isRequired,
-  poster: PropTypes.string.isRequired,
+  poster: PropTypes.string,
 };
 
 export default MovieItem;

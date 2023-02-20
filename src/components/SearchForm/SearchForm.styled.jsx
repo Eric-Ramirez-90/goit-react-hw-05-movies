@@ -19,15 +19,12 @@ export const Form = styled.form`
 export const Input = styled.input`
   display: inline-block;
   width: 100%;
-  font: inherit;
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding: 4px;
 
   ::placeholder {
-    font: inherit;
     font-size: 18px;
   }
 `;
@@ -37,9 +34,6 @@ export const Button = styled.button`
   width: 32px;
   height: 32px;
   border: 0;
-  background-size: 50%;
-  background-repeat: no-repeat;
-  background-position: center;
   opacity: 0.6;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
