@@ -1,4 +1,5 @@
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import noImage from '../../images/noImages.jpg';
 import {
   Container,
@@ -54,6 +55,19 @@ const MovieInfo = ({ movie }) => {
       </InfoBlock>
     </Container>
   );
+};
+
+MovieInfo.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    overview: PropTypes.string.isRequired,
+    poster_path: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    genres: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  }),
 };
 
 export default MovieInfo;

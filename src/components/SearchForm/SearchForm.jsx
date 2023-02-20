@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { FcSearch } from 'react-icons/fc';
+import PropTypes from 'prop-types';
 import { Container, Form, Input, Button } from './SearchForm.styled';
 
 const SearchForm = ({ onSubmit }) => {
@@ -39,6 +40,10 @@ const SearchForm = ({ onSubmit }) => {
       </Form>
     </Container>
   );
+};
+
+SearchForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default SearchForm;
